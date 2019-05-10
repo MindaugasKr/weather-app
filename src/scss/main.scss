@@ -1,0 +1,441 @@
+/*------------------------------------*\
+  #SECTION- variables
+\*------------------------------------*/
+$container-main-width: 900px;
+
+$current-weather-width: 784px;
+
+$location-input-height: 36px;
+$location-input-min-width: 300px;
+
+/*------------------------------------*\
+  #SECTION- functions
+\*------------------------------------*/
+
+@import "__functions.scss";
+
+
+/*------------------------------------*\
+  #SECTION- reset / changing defoults
+\*------------------------------------*/
+
+@import "__resets.scss";
+
+
+/*------------------------------------*\
+  #SECTION- colors
+\*------------------------------------*/
+// 
+// primary-background
+// secondary-background
+// background-shadow
+// 
+// hover
+// hover-seachBtn-back
+// hover-seachBtn-text
+// active
+//
+// line
+$colors: (
+    primary: rgb(31, 51, 83),
+    secondary: rgb(252, 220, 0),
+
+    background-primary: white,
+    background-secondary: rgba(255,255,255,0.9),
+    background-shadow: rgba(255, 255, 255, 0.5),
+
+    active: rgba(255, 166, 0, 0.8),
+
+    line: rgb(235, 235, 235),
+);
+
+
+/*------------------------------------*\
+  #SECTION- algolia places
+\*------------------------------------*/
+
+.algolia-places {
+  width: auto;
+  display: initial !important;
+}
+.ap-icon-pin {
+  display: none !important;
+}
+
+/*------------------------------------*\
+  #SECTION- generic
+\*------------------------------------*/
+
+.img-fit {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.center-margin {
+  margin: auto;
+}
+
+.v-center {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.relative {
+  position: relative;
+}
+
+
+/*------------------------------------*\
+  #SECTION- weather app
+\*------------------------------------*/
+
+body {
+  font-family: Heebo,Helvetica,sans-serif;
+  line-height: 1.7;
+}
+
+.weather-background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+}
+
+.container-main {
+  background-color: color(background-secondary);
+  box-shadow: 0px 0px 20px 0px color(background-shadow);
+
+  width: $container-main-width;
+
+  text-align: center;
+
+  padding-top: 1px;
+  padding-bottom: 1px;
+
+  margin: 30px auto;
+}
+
+.search {
+  margin: 30px 0;
+
+  font-size: 18px;
+  font-weight: 300;
+
+  position: relative;
+
+  // background-color: cyan;
+  
+
+  display: inline-block;
+
+
+  &:hover,
+  &:focus-within {
+    outline: solid 1px lightgray;
+  }
+
+  &__text-input {
+    max-width: 80%;
+    min-width: $location-input-min-width;
+    height: $location-input-height;
+    border: none;
+    // font-size: inherit;
+    padding-left: 15px;
+    font: inherit;
+  }
+
+  &__btn {
+    height: $location-input-height;
+    width: $location-input-height;
+
+    background-color: color(background-primary);
+    color: gray;
+    border: none;
+    //  font-size: inherit;
+    font: inherit;
+
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: tomato;
+      color: black;
+    }
+  }
+
+  &__loading-indicator {
+    position: absolute;
+    top: 0;
+    right: 100%;
+    height: $location-input-height;
+    z-index: 999;
+
+    animation: spin 1s linear infinite;
+  }
+}
+
+.unit {
+  &__container {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+  }
+
+  &__btn {
+    $dimensions: 30px;
+
+    width: $dimensions;
+    height: $dimensions;
+
+    padding: 0;
+    margin: 0;
+    border: none;
+
+    background-color: inherit;
+
+    &:hover {
+      background-color: lightgray;
+    }
+    &--active {
+      background-color: color(active) !important;
+    }
+  }
+}
+
+.current {
+
+  background-color: color(background-primary);
+  // box-shadow: 0 0 10px 0 white;
+  display: inline-block;
+  // width: $current-weather-width;
+  width: 100%;
+
+  $img-dimensions: 100px;
+  &__img-container {
+    display: inline-block;
+    height: 100%;
+    width: $img-dimensions;
+    // background-color: green;
+  }
+  &__img {
+    width: $img-dimensions;
+    position: absolute;
+  }
+  &__temperature {
+    font-size: 90px;
+  }
+
+
+  &__location-time {
+    margin: 20px 0;
+  }
+  &__location,
+  &__time {
+    display: block;
+  }
+
+  &__location {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  &__info-container {
+    margin-bottom: 24px;
+  }
+  &__info-block {
+    display: inline-block;
+    text-align: left;
+    vertical-align: top;
+    position: relative;
+
+    margin: 0 10px;
+
+    // background-color: yellow;
+  }
+
+  &__info-text {
+    display: block;
+
+    & strong {
+      font-weight: 500;
+    }
+  }
+}
+
+
+.hourly, .week {
+  margin: 30px 0;
+  background-color: color(background-primary);
+}
+
+
+.weather-table {
+  // background-color: green;
+
+  display: table;
+  width: 100%;
+
+  &__title {
+    margin: 0 0 24px;
+    font-size: 20px;
+  }
+
+  &__info-block {
+    // display: inline-block;
+    display: table-cell;
+    padding: 24px 12px;
+
+    // background-color: cyan;
+    border-right: solid 1px color(line);
+
+
+    &--active {
+      background-color: color(active) !important; 
+    }
+    &:last-child {
+      border-right: none;
+    }
+
+    // &:hover {
+    //   background-color: rgb(235, 235, 235);
+    // }
+  }
+  &__info-text {
+    display: block;
+    font-weight: 400;
+
+    
+
+    &--strong {
+      font-weight: 500;
+    }
+  }
+}
+
+
+
+/*------------------------------------*\
+  #SECTION- media quaries
+\*------------------------------------*/
+// 900 px
+@media screen and (max-width: $container-main-width) {
+  .container-main {
+    width: auto;
+    margin: 0;
+  }
+
+  .current {
+    width: $current-weather-width;
+  }
+
+  .hourly, .week {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $current-weather-width;
+    min-width: 0;
+  }
+
+  .weather-table {
+
+    // display: block;
+    display: table;
+    border-collapse: collapse;
+
+    &__info-block {
+      // display: block;
+      display: table-row;
+
+      padding: 0;
+      border-top: solid 1px color(line);
+    }
+    &__info-text {
+      // display: inline-block;
+      display: table-cell;
+
+      padding: 0 12px;
+
+      & img {
+        height: 40px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .current {
+    width: 100%;
+
+    &__info-block {
+      text-align: center;
+    }    
+
+    &__info-block {
+      display: block;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+
+    &__img {
+      position: initial;
+      transform: none;
+    }    
+  }
+
+  .unit {
+    &__container {
+      right: 15px;
+    }
+  }
+
+  .weather-table {
+
+    &__info-text {
+      padding: 0 3px;
+
+      & img {
+        height: 30px;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 360px) {
+  .search {
+    display: block;
+
+    &__text-input {
+      max-width: initial;
+      min-width: initial;
+      width: calc(100% - #{$location-input-height});
+    }
+  }
+
+  .current,.hourly, .week {
+
+    width: 100%;
+  }
+
+  .weather-table {
+
+    &__info-text {
+      padding: 0;
+
+      & img {
+        height: 30px;
+      }
+    }
+  }
+}
+
+/*------------------------------------*\
+  #SECTION- animations
+\*------------------------------------*/
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

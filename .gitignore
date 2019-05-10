@@ -1,0 +1,6 @@
+papildomi-failai/
+node_modules/
+dist/
+.vscode/
+DELETE/
+src/js/models/qwe.js
